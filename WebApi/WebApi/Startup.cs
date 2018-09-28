@@ -25,19 +25,20 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AnimalContext>(opt => opt.UseInMemoryDatabase("AnimalList"));
+            var connection= @"Data Source = (local)\SQLEXPRESS; Initial Catalog = RestefulDemo; User Id = sa; Password = cjgame";
+            services.AddDbContext<AnimalContext>(opt => opt.UseSqlServer(connection));
             services.AddMvc();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAllHeaders",
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin()
-                                 .AllowAnyHeader()
-                                 .AllowAnyMethod();
-                      });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAllHeaders",
+            //          builder =>
+            //          {
+            //              builder.AllowAnyOrigin()
+            //                     .AllowAnyHeader()
+            //                     .AllowAnyMethod();
+            //          });
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
